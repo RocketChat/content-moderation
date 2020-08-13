@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  api:
+    image: shreyanshtomar/moderation_api:1.0
+    restart: always
+    volumes: ['./server:/server']
+    networks:
+      rocketchat:
+        aliases:
+          - moderation-api
+    environment:
+      - RC_UUID=J5Dy6fAfqbpzDene3 #Rocket Chat Admin's User-ID
+      - RC_TOKEN=3LuP6nfqAuptUSsQaePoFC51EGV9QISEJjXZLswVpA_ #Rocket Chat Admin's Authentication Token
+  
+networks:
+  rocketchat:
+    driver: bridge
