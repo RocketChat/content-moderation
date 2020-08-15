@@ -16,12 +16,13 @@ import json
 from pathlib import Path
 import time
 import requests
-
+from io import BytesIO
 import re
 import base64
 from PIL import Image
 from flask import Flask, jsonify, request
 import os
+
 
 app = Flask(__name__)
 
@@ -97,9 +98,9 @@ def predict():
             
             fileType = response.headers['content-type']
             print(fileType)
-            if response.status_code == 200 and fileType == ('image/jpeg' or 'image/png'):
+            if response.status_code == 200 and fileType == ('image/jpeg') or ('image/png'):
                 class_name = get_prediction(io.BytesIO(response.content))
-            elif(fileType == ('image/jpeg' or 'image/png')):
+            elif(fileType == ('image/jpeg') or ('image/png')):
                 print('ERROR: Error while downloading image. Got status code {}.'.format(response.status_code))
                 error = {'error':'Unexpected error encountered.'}
             else:
@@ -116,10 +117,10 @@ def predict():
         print('Time - {}s'.format(totalTime))
         print('-'*80)
 
-        if(fileType == ('image/jpeg' or 'image/png') and class_name == 'nsfw'):
+        if(fileType == ('image/jpeg') or ('image/png') and class_name == 'nsfw'):
             break
 
-    if(fileType == ('image/jpeg' or 'image/png')):
+    if fileType == ('image/jpeg') or ('image/png'):
         if class_name == 'nsfw' or not error:
             print({'classification': class_name})
             return jsonify({'classification': class_name})
@@ -129,4 +130,4 @@ def predict():
         return jsonify(error), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
