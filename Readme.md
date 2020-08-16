@@ -55,4 +55,4 @@ docker-compose -f docker-compose-server.yml up -d
  docker logs moderation_api_1
  ```
  ### Note
- The model currently recognises only JPEGs and PNGs.
+ The Machine Learning model currently recognises only JPEGs and PNGs.
