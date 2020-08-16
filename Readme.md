@@ -9,14 +9,15 @@ The dockerised moderation service can be deployed to any server easily since all
 ## Quick start for code developers
 Prerequisites:
 
-* [Rocket.Chat-Deploy](https://docs.rocket.chat/apps-development/getting-started#installation)
+* [Rocket.Chat-Deploy](https://docs.rocket.chat/apps-development/getting-started#installation)<br>
+```npm install -g @rocket.chat/apps-cli```
 * [Docker](https://docs.docker.com/get-docker/)
 > Depending on the installation & machine while running docker commands you may want to use 'sudo' if you encounter any errors.
 1. Open a Command Line and execute the following code.
 ```sh
-git clone https://github.com/shreyanshtomar/moderation
-cd moderation
-docker-compose up -d
+git clone https://github.com/RocketChat/content-moderation.git
+cd content-moderation
+docker-compose up -d // This will launch a Rocket Chat Instance
 ```
 2. Open Rocket.Chat instance ( http://127.0.0.1:3000 ) and Go through the Rocket.Chat initial setup. Remember
 user-name and password for future use (we will also need it in later steps).
@@ -25,12 +26,9 @@ Copy User-ID & Token for future use.
 4. From Rocket Chat open Administration -> General -> Apps and make sure the following options are enabled:
  - Enable App development mode 
  - Enable the App Framework
-5. Switch to Command Line and execute the following commands. 
-```sh
-cd content-moderation
-rc-apps deploy --url http://127.0.0.1:3000 --username <your-user-name> --password <your-password>
-```
-After the first time deployment of app if you change anything in App's code than add an '--update' flag at the end in the above command.
+5. For Rocket.Chat [Content-Moderation-App](https://github.com/RocketChat/Apps.Moderation) installation follow steps
+mentioned [here](https://github.com/RocketChat/Apps.Moderation/blob/master/README.md)
+
 > After deployment let's configure Content Moderation App so that app can help in posting images to the hosted moderation-service to make predictions and
 block offensive images/links.<br>
 In our case:<br>
@@ -38,11 +36,11 @@ In our case:<br>
 'Rocket Chat host URL': http://rocket-chat:3000 &  'Content Moderation App Host URL': http://moderation-api:5000/predict in
 Content Moderation App's Setting.<br>
 Now, Let's deploy our service!!<br>
-7. Edit [docker-compose-server.yml](https://github.com/shreyanshtomar/moderation/blob/shreyansh_dev/docker-compose-server.yml) in your local moderation folder
-(directory) & change the following
+7. Edit [docker-compose-server.yml](https://github.com/RocketChat/content-moderation/blob/master/docker-compose-server.yml) in your local content-moderation directory.
+& change the following
 parameters:<br>
-  a. [RC_UUID](https://github.com/shreyanshtomar/moderation/blob/38da4fc779bbaa74e54153aaa0ba0f537e55f563/docker-compose-server.yml#L13) <br>
-  b. [RC_TOKEN](https://github.com/shreyanshtomar/moderation/blob/38da4fc779bbaa74e54153aaa0ba0f537e55f563/docker-compose-server.yml#L14)<br>
+  a. [RC_UUID](https://github.com/RocketChat/content-moderation/blob/fa05ae92ca6497db6fca6558e2ff55ddc00c1543/docker-compose-server.yml#L13) <br>
+  b. [RC_TOKEN](https://github.com/RocketChat/content-moderation/blob/fa05ae92ca6497db6fca6558e2ff55ddc00c1543/docker-compose-server.yml#L14)<br>
   We copied them in previous step.
 ```sh
 cd .. # Make sure you're in moderation directory
@@ -56,5 +54,5 @@ docker-compose -f docker-compose-server.yml up -d
  docker logs moderation_rocketchat_1
  docker logs moderation_api_1
  ```
- 
-
+ ### Note
+ The model currently recognises only JPEGs and PNGs.
