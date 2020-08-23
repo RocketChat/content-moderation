@@ -56,3 +56,11 @@ docker-compose -f docker-compose-server.yml up -d
  ```
  ### Note
  The Machine Learning model currently recognises only JPEGs and PNGs.
+
+### Contribute towards the expansion of the service:
+As of now we have only one Machine Learning model that is capable of classifying the offensive content with an accuracy of ~92%. 
+To expand the service for different medias like Gifs, Videos, all the other media that requires analysing the media frame by frame for classification :
+1. We'll have to collect(scrap) the data from various websites like reddit(NSFW, SFW), instagram(NSFW, SFW), Twitter(NSFW, SFW) & Various pornography sites for 
+   NSFW content.
+2. Now that we have data, we need a Machine Learing Model. To build video classification models I recommend to give it a read. --> [Video Classification](https://www.analyticsvidhya.com/blog/2019/09/step-by-step-deep-learning-tutorial-video-classification-python/) & [YouTube](https://www.youtube.com/watch?v=SphaH33JU3Q)
+3. Build a Flask app with docker support for easy deployment.
