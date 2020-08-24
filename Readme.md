@@ -59,7 +59,7 @@ docker-compose -f docker-compose-server.yml up -d
  
  ### Bits about our Machine Learning Models
  1. We have two [PyTorch](https://pytorch.org/docs/stable/index.html) models(resnet18 & VGG16) and two [fastai](http://docs.fast.ai/) models(resnet18 & resnet50). We are currently using PyTorch's [resnet18](https://github.com/RocketChat/content-moderation/blob/master/server/notebooks/PyTorch/moderation_v1(resnet18).ipynb) architecture.
- 2. All [Jupyter Notebooks](https://jupyter.org/) have [Google Colab](https://colab.research.google.com/) Link where contributers can contribute by training our ML models on more datasets, optimising [hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)#:~:text=In%20machine%20learning%2C%20a%20hyperparameter,weights)%20are%20derived%20via%20training.), etc..
+ 2. All [Jupyter Notebooks](https://jupyter.org/) have [Google Colab](https://colab.research.google.com/) Link where contributers can contribute by training our ML models on more datasets, optimising [hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)#:~:text=In%20machine%20learning%2C%20a%20hyperparameter,weights), etc..
 
 ### Contribute towards the expansion of the Project:
 As of now we have only one Machine Learning model that is capable of classifying the offensive content with an accuracy of ~92%. 
