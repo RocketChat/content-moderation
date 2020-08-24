@@ -56,14 +56,17 @@ docker-compose -f docker-compose-server.yml up -d
  ```
  ### Note
  The Machine Learning model currently recognises only JPEGs and PNGs.
+ 
+ ### Bits about our Machine Learning Models
+ 1. We have two [PyTorch](https://pytorch.org/docs/stable/index.html) models(resnet18 & VGG16) and two [fastai](http://docs.fast.ai/) models(resnet18 & resnet50). We are currently using PyTorch's [resnet18](https://github.com/RocketChat/content-moderation/blob/master/server/notebooks/PyTorch/moderation_v1(resnet18).ipynb) architecture.
+ 2. All [Jupyter Notebooks](https://jupyter.org/) have [Google Colab](https://colab.research.google.com/) Link where contributers can contribute by training our ML models on more datasets, optimising [hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)#:~:text=In%20machine%20learning%2C%20a%20hyperparameter,weights)%20are%20derived%20via%20training.), etc..
 
-### Contribute towards the expansion of the service:
+### Contribute towards the expansion of the Project:
 As of now we have only one Machine Learning model that is capable of classifying the offensive content with an accuracy of ~92%. 
 To expand the service for different medias like Gifs, Videos, all the other media that requires analysing the media frame by frame for classification :
 1. We'll have to collect(scrap) the data from various websites like reddit(NSFW, SFW), instagram(NSFW, SFW), Twitter(NSFW, SFW) & Various pornography sites for 
-   NSFW content. We have curated a list of [datasets](https://github.com/RocketChat/content-moderation/blob/master/server/notebooks/Readme.md) which can be scrapped and cleaned for our Machine Learning Model Training.
+   NSFW content. We have curated a list of [datasets](https://github.com/RocketChat/content-moderation/tree/master/server/notebooks#for-videos) which can be scrapped and cleaned for our Machine Learning Model Training.
 2. Now that we have data, we need a Machine Learing Model. To build video classification models I recommend to give it a read. --> [Video Classification](https://www.analyticsvidhya.com/blog/2019/09/step-by-step-deep-learning-tutorial-video-classification-python/) & see this [YouTube](https://www.youtube.com/watch?v=SphaH33JU3Q) video to get an idea how to get started.
 3. Build a Flask app with docker support for easy deployment.
 4. Once the flask app is working, configure & add required settings in [Content Moderation App](https://github.com/RocketChat/Apps.Moderation) so that Rocket Chat
 can send the video url to the flask app to send predictions to [Content Moderation App](https://github.com/RocketChat/Apps.Moderation) to take actions like blocking the media or not.
-
