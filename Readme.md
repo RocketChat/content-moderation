@@ -9,14 +9,15 @@ The dockerised moderation service can be deployed to any server easily since all
 ## Quick start for code developers
 Prerequisites:
 
-* [Rocket.Chat-Deploy](https://docs.rocket.chat/apps-development/getting-started#installation)
+* [Rocket.Chat-Deploy](https://docs.rocket.chat/apps-development/getting-started#installation)<br>
+```npm install -g @rocket.chat/apps-cli```
 * [Docker](https://docs.docker.com/get-docker/)
 > Depending on the installation & machine while running docker commands you may want to use 'sudo' if you encounter any errors.
 1. Open a Command Line and execute the following code.
 ```sh
-git clone https://github.com/shreyanshtomar/moderation
-cd moderation
-docker-compose up -d
+git clone https://github.com/RocketChat/content-moderation.git
+cd content-moderation
+docker-compose up -d // This will launch a Rocket Chat Instance
 ```
 2. Open Rocket.Chat instance ( http://127.0.0.1:3000 ) and Go through the Rocket.Chat initial setup. Remember
 user-name and password for future use (we will also need it in later steps).
@@ -25,12 +26,9 @@ Copy User-ID & Token for future use.
 4. From Rocket Chat open Administration -> General -> Apps and make sure the following options are enabled:
  - Enable App development mode 
  - Enable the App Framework
-5. Switch to Command Line and execute the following commands. 
-```sh
-cd content-moderation
-rc-apps deploy --url http://127.0.0.1:3000 --username <your-user-name> --password <your-password>
-```
-After the first time deployment of app if you change anything in App's code than add an '--update' flag at the end in the above command.
+5. For Rocket.Chat [Content-Moderation-App](https://github.com/RocketChat/Apps.Moderation) installation follow steps
+mentioned [here](https://github.com/RocketChat/Apps.Moderation/blob/master/README.md)
+
 > After deployment let's configure Content Moderation App so that app can help in posting images to the hosted moderation-service to make predictions and
 block offensive images/links.<br>
 In our case:<br>
@@ -38,11 +36,11 @@ In our case:<br>
 'Rocket Chat host URL': http://rocket-chat:3000 &  'Content Moderation App Host URL': http://moderation-api:5000/predict in
 Content Moderation App's Setting.<br>
 Now, Let's deploy our service!!<br>
-7. Edit [docker-compose-server.yml](https://github.com/shreyanshtomar/moderation/blob/shreyansh_dev/docker-compose-server.yml) in your local moderation folder
-(directory) & change the following
+7. Edit [docker-compose-server.yml](https://github.com/RocketChat/content-moderation/blob/master/docker-compose-server.yml) in your local content-moderation directory.
+& change the following
 parameters:<br>
-  a. [RC_UUID](https://github.com/shreyanshtomar/moderation/blob/38da4fc779bbaa74e54153aaa0ba0f537e55f563/docker-compose-server.yml#L13) <br>
-  b. [RC_TOKEN](https://github.com/shreyanshtomar/moderation/blob/38da4fc779bbaa74e54153aaa0ba0f537e55f563/docker-compose-server.yml#L14)<br>
+  a. [RC_UUID](https://github.com/RocketChat/content-moderation/blob/fa05ae92ca6497db6fca6558e2ff55ddc00c1543/docker-compose-server.yml#L13) <br>
+  b. [RC_TOKEN](https://github.com/RocketChat/content-moderation/blob/fa05ae92ca6497db6fca6558e2ff55ddc00c1543/docker-compose-server.yml#L14)<br>
   We copied them in previous step.
 ```sh
 cd .. # Make sure you're in moderation directory
@@ -56,5 +54,23 @@ docker-compose -f docker-compose-server.yml up -d
  docker logs moderation_rocketchat_1
  docker logs moderation_api_1
  ```
+<<<<<<< HEAD
 
+=======
+ ### Note
+ The Machine Learning model currently recognises only JPEGs and PNGs.
+ 
+ ### Bits about our Machine Learning Models
+ 1. We have two [PyTorch](https://pytorch.org/docs/stable/index.html) models(resnet18 & VGG16) and two [fastai](http://docs.fast.ai/) models(resnet18 & resnet50). We are currently using PyTorch's [resnet18](https://github.com/RocketChat/content-moderation/blob/master/server/notebooks/PyTorch/moderation_v1(resnet18).ipynb) architecture.
+ 2. All [Jupyter Notebooks](https://jupyter.org/) have [Google Colab](https://colab.research.google.com/) Link where contributers can contribute by training our ML models on more datasets, optimising [hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)#:~:text=In%20machine%20learning%2C%20a%20hyperparameter,weights), etc..
+>>>>>>> a6f0c4fe3c741c3015d81562d014ca6b47651682
 
+### Contribute towards the expansion of the Project:
+As of now we have only one Machine Learning model that is capable of classifying the offensive content with an accuracy of ~92%. 
+To expand the service for different medias like Gifs, Videos, all the other media that requires analysing the media frame by frame for classification :
+1. We'll have to collect(scrap) the data from various websites like reddit(NSFW, SFW), instagram(NSFW, SFW), Twitter(NSFW, SFW) & Various pornography sites for 
+   NSFW content. We have curated a list of [datasets](https://github.com/RocketChat/content-moderation/tree/master/server/notebooks#for-videos) which can be scrapped and cleaned for our Machine Learning Model Training.
+2. Now that we have data, we need a Machine Learing Model. To build video classification models I recommend to give it a read. --> [Video Classification](https://www.analyticsvidhya.com/blog/2019/09/step-by-step-deep-learning-tutorial-video-classification-python/) & see this [YouTube](https://www.youtube.com/watch?v=SphaH33JU3Q) video to get an idea how to get started.
+3. Build a Flask app with docker support for easy deployment.
+4. Once the flask app is working, configure & add required settings in [Content Moderation App](https://github.com/RocketChat/Apps.Moderation) so that Rocket Chat
+can send the video url to the flask app to send predictions to [Content Moderation App](https://github.com/RocketChat/Apps.Moderation) to take actions like blocking the media or not.
