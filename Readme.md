@@ -54,17 +54,14 @@ docker-compose -f docker-compose-server.yml up -d
  docker logs moderation_rocketchat_1
  docker logs moderation_api_1
  ```
-<<<<<<< HEAD
 
-=======
  ### Note
  The Machine Learning model currently recognises only JPEGs and PNGs.
  
  ### Bits about our Machine Learning Models
  1. We have two [PyTorch](https://pytorch.org/docs/stable/index.html) models(resnet18 & VGG16) and two [fastai](http://docs.fast.ai/) models(resnet18 & resnet50). We are currently using PyTorch's [resnet18](https://github.com/RocketChat/content-moderation/blob/master/server/notebooks/PyTorch/moderation_v1(resnet18).ipynb) architecture.
  2. All [Jupyter Notebooks](https://jupyter.org/) have [Google Colab](https://colab.research.google.com/) Link where contributers can contribute by training our ML models on more datasets, optimising [hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)#:~:text=In%20machine%20learning%2C%20a%20hyperparameter,weights), etc..
->>>>>>> a6f0c4fe3c741c3015d81562d014ca6b47651682
-
+ 3. You can also train the Machine Learning with your own data. To know more read [here](https://github.com/RocketChat/content-moderation/blob/master/server/Readme.md).
 ### Contribute towards the expansion of the Project:
 As of now we have only one Machine Learning model that is capable of classifying the offensive content with an accuracy of ~92%. 
 To expand the service for different medias like Gifs, Videos, all the other media that requires analysing the media frame by frame for classification :
