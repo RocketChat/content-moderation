@@ -56,5 +56,5 @@ docker-compose -f docker-compose-server.yml up -d
  docker logs moderation_rocketchat_1
  docker logs moderation_api_1
  ```
- 
+
 
